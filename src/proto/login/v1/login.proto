@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package login.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/thernandez/app-pedidos-fondos-backend/gen";
+
+message User {
+	uint64 id = 1;
+	string document = 2;
+	string password = 3;
+	string name = 4;
+	string lastname = 5;
+	string email = 6;
+	string phone = 7;
+	string company = 8;
+	optional google.protobuf.Timestamp created_at = 9;
+	optional google.protobuf.Timestamp updated_at = 10;
+	optional google.protobuf.Timestamp deleted_at = 11;
+}
+
+message LoginRequest {
+	string document = 1;
+	string password = 2;
+}
+
+message LoginResponse {
+	string token = 1;
+	optional google.protobuf.Timestamp expiration = 2;
+}
+
+message RefreshTokenRequest {
+	string token = 1;
+}
+
+message RefreshTokenResponse {
+	string token = 1;
+	optional google.protobuf.Timestamp expiration = 2;
+}
+
+message LogoutRequest {
+	string token = 1;
+}
+
+message LogoutResponse {
+	string message = 1;
+}
