@@ -3,8 +3,10 @@ package main
 import (
 	"os"
 
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+	"github.com/thernande/app-pedidos-fondos-backend/internal/controller/login_controller"
 	"github.com/thernande/app-pedidos-fondos-backend/internal/model"
-	"github.com/thernande/app-pedidos-fondos-backend/pkg/appLogs"
 )
 
 func main() {
@@ -12,7 +14,9 @@ func main() {
 		model.Migrate()
 		os.Exit(0)
 	}
-	logger := &appLogs.Logger{}
-	logger.Init()
-	logger.InfoLogPrint("Hello World")
+	router := gin.Default()
+	router.Use(cors.Default())
+	router.Static("/", "./public")
+	router.POST("/proto", login_controller.RegisterUser)
+	router.Run(":8090")
 }

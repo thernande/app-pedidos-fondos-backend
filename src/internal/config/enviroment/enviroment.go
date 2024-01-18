@@ -28,7 +28,7 @@ func New() *Enviroment {
 }
 
 func (e *Enviroment) Load() {
-	viper.SetConfigFile(".env")
+	viper.SetConfigFile("C:/Users/thernandez/Documents/desarrollo/go/app-pedidos-fondos-backend/src/.env")
 
 	err := viper.ReadInConfig()
 	if err != nil {

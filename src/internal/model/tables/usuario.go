@@ -8,6 +8,7 @@ import (
 type Usuario struct {
 	gorm.Model
 	Documento   string `gorm:"unique"`
+	Clave       string
 	Nombres     string
 	Apellidos   string
 	Telefono    string

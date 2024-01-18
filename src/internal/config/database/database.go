@@ -48,7 +48,8 @@ func (d *Database) MySQL() *gorm.DB {
 		Logger:      logType,
 	})
 	if err != nil {
-		log.Fatal(err, "error connecting to database")
+		log.Println(err, "error connecting to database")
+		return nil
 	}
 
 	return Db

@@ -4,7 +4,7 @@ package login.v1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/thernandez/app-pedidos-fondos-backend/gen";
+option go_package = "github.com/thernandez/app-pedidos-fondos-backend/proto/login/v1";
 
 message User {
 	uint64 id = 1;
@@ -45,4 +45,13 @@ message LogoutRequest {
 
 message LogoutResponse {
 	string message = 1;
+}
+
+message RegisterUserRequest {
+	User user = 1;
+}
+
+message RegisterUserResponse {
+	string message = 1;
+	bool success = 2;
 }
