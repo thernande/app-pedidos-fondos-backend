@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package login.v1;
 
-import "google/protobuf/timestamp.proto";
-
 option go_package = "github.com/thernandez/app-pedidos-fondos-backend/proto/login/v1";
 
 message User {
@@ -15,9 +13,6 @@ message User {
 	string email = 6;
 	string phone = 7;
 	string company = 8;
-	optional google.protobuf.Timestamp created_at = 9;
-	optional google.protobuf.Timestamp updated_at = 10;
-	optional google.protobuf.Timestamp deleted_at = 11;
 }
 
 message LoginRequest {
@@ -27,7 +22,6 @@ message LoginRequest {
 
 message LoginResponse {
 	string token = 1;
-	optional google.protobuf.Timestamp expiration = 2;
 }
 
 message RefreshTokenRequest {
@@ -36,7 +30,6 @@ message RefreshTokenRequest {
 
 message RefreshTokenResponse {
 	string token = 1;
-	optional google.protobuf.Timestamp expiration = 2;
 }
 
 message LogoutRequest {

@@ -52,18 +52,19 @@ func (m *Db) GetDataByQueryWithConditions(query string, conditions []interface{}
 	m.Err = nil
 }
 
-func (m *Db) ExecByQuery(query string) {
+func (m *Db) ExecByQuery(query string) error {
 	if m.Instance == nil {
 		m.Err = errors.New("instance connection is not initialized")
 		m.Log.ErrorLogPrint(m.Err.Error())
-		return
+		return m.Err
 	}
 	if res := m.Instance.Exec(query); res.Error != nil {
 		m.Log.ErrorLogPrint(res.Error.Error())
 		m.Err = res.Error
-		return
+		return res.Error
 	}
 	m.Err = nil
+	return nil
 }
 
 func (m *Db) InitTransaction() {

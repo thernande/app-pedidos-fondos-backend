@@ -28,7 +28,7 @@ func New() *Enviroment {
 }
 
 func (e *Enviroment) Load() {
-	viper.SetConfigFile("C:/Users/thernandez/Documents/desarrollo/go/app-pedidos-fondos-backend/src/.env")
+	viper.SetConfigFile(".env")
 
 	err := viper.ReadInConfig()
 	if err != nil {
@@ -40,7 +40,4 @@ func (e *Enviroment) Load() {
 		log.Fatal("Environment can't be loaded: ", err)
 	}
 
-	if e.AppEnv == "development" {
-		log.Println("The App is running in development env")
-	}
 }

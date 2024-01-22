@@ -1,8 +1,6 @@
 package encrypt
 
 import (
-	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
@@ -24,7 +22,7 @@ func getSecretKey() []byte {
 
 var logger = &appLogs.Logger{}
 
-func GenerateJWTLoginUsuario(id uint, tokenString *[2]string, chann chan errores.ChannelErrors) {
+func GenerateJWTLoginUsuario(id uint, Document string, tokenString *string, chann chan errores.ChannelErrors) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	token.Header["typ"] = "JWT"
 	token.Header["alg"] = "HS256"
@@ -32,21 +30,15 @@ func GenerateJWTLoginUsuario(id uint, tokenString *[2]string, chann chan errores
 	claims["iat"] = time.Now().Unix()
 	claims["exp"] = time.Now().Add(time.Duration(env.AccessTokenExpiryHour) * time.Hour).Unix()
 	claims["Id"] = id
+	claims["Document"] = Document
 
 	TS, err := token.SignedString(getSecretKey())
 	if err != nil {
 		logger.ErrorLogPrint(err.Error())
 		chann <- errores.ChannelErrors{Condition: true, Error: err.Error()}
-		(*tokenString)[0] = ""
+		(*tokenString) = ""
 	}
-	json, err := json.Marshal(claims)
-	if err != nil {
-		logger.ErrorLogPrint(err.Error())
-		chann <- errores.ChannelErrors{Condition: true, Error: err.Error()}
-		return
-	}
-	(*tokenString)[1] = base64.StdEncoding.EncodeToString(json)
-	(*tokenString)[0] = TS
+	(*tokenString) = TS
 	chann <- errores.ChannelErrors{Condition: false, Error: "todo bien"}
 }
 

@@ -35,7 +35,6 @@ func (d *Database) MySQL() *gorm.DB {
 	env.Load()
 	logType := logger.Default.LogMode(logger.Silent)
 	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local", d.User, d.Password, d.Host, d.Port, d.DbName)
-	fmt.Println(connectionString)
 	if env.DBMode == "debug" {
 		logType = logger.Default.LogMode(logger.Info)
 	}
